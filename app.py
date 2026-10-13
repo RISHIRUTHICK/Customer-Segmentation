@@ -22,7 +22,7 @@ SEGMENT_NAMES = {
     0: "High-Value Multi-Channel Customers",
     1: "Low-Spend, Low-Purchase Customers",
     2: "High-Value Store & Catalogue Customers",
-    3: "Active Online & Deal-Oriented Customers",
+    3: "Active Online & Deal Customers",
 }
 SEGMENT_DESCRIPTIONS = {
     0: ("Notebook profile: 275 customers (12.28%). Highest average total spending "
@@ -65,6 +65,14 @@ with st.expander("View the cluster profiles from the notebook"):
         {"Cluster": 3, "Segment": SEGMENT_NAMES[3], "Customer Count": 473, "Customer %": "21.12%", "Avg Total Spent": 627.48, "Avg Total Purchases": 15.79, "Web Visits / Month": 6.67, "Deal Purchases": 4.49, "Web Purchases": 6.44, "Catalogue Purchases": 2.44, "Store Purchases": 6.91},
     ])
     st.dataframe(profiles, use_container_width=True, hide_index=True)
+    st.markdown("### Customer Distribution by Cluster")
+    st.bar_chart(profiles.set_index("Segment")["Customer Count"])
+
+    st.markdown("### Average Spending by Cluster")
+    st.bar_chart(profiles.set_index("Segment")["Avg Total Spent"])
+
+    st.markdown("### Average Purchases by Cluster")
+    st.bar_chart(profiles.set_index("Segment")["Avg Total Purchases"])
     st.caption("Cluster IDs and summary values are taken from the notebook's final K-Means cluster summary.")
 
 with st.form("customer_form"):
